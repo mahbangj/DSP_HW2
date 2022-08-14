@@ -1,0 +1,165 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>DSP0_MATLAB_q6</title><meta name="generator" content="MATLAB 9.11"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-12-19"><meta name="DC.source" content="DSP0_MATLAB_q6.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#2">Question 6, 1&amp;2</a></li><li><a href="#3">part 3</a></li><li><a href="#4">part 4</a></li><li><a href="#5">equalizer</a></li></ul></div><pre class="codeinput">clear;
+close <span class="string">all</span>;
+clc;
+</pre><h2 id="2">Question 6, 1&amp;2</h2><pre class="codeinput">a=load(<span class="string">'a.mat'</span>);
+b=load(<span class="string">'b.mat'</span>);
+figure(1)
+freqz(b.b,a.a)
+figure(2)
+zplane(b.b,a.a)
+title(<span class="string">'Z-plane of the channel system function'</span>)
+</pre><img vspace="5" hspace="5" src="DSP0_MATLAB_q6_01.png" alt=""> <img vspace="5" hspace="5" src="DSP0_MATLAB_q6_02.png" alt=""> <h2 id="3">part 3</h2><pre class="codeinput">[y,Fs] = audioread(<span class="string">'HW1_Q4_voice.wav'</span>);
+n=length(y);
+y=y(Fs:2*Fs);
+y=y';
+fftsignal=fft(y);
+fftsignal = fftshift(fftsignal);
+
+f=Fs/2*linspace(-pi,pi,length(fftsignal));
+figure(3)
+plot(f,abs(fftsignal))
+title(<span class="string">'Magnitude'</span>)
+figure(4)
+plot(angle(fftsignal))
+title(<span class="string">'Phase'</span>)
+</pre><img vspace="5" hspace="5" src="DSP0_MATLAB_q6_03.png" alt=""> <img vspace="5" hspace="5" src="DSP0_MATLAB_q6_04.png" alt=""> <img vspace="5" hspace="5" src="DSP0_MATLAB_q6_05.png" alt=""> <h2 id="4">part 4</h2><pre class="codeinput">output=filter(b.b,a.a,y);
+figure(5)
+plot(f,output)
+title(<span class="string">'Time domain'</span>)
+outft=fft(output);
+outft=fftshift(outft);
+figure(6)
+plot(f,abs(outft))
+title(<span class="string">'Frequency Domain(Magnitude)'</span>)
+figure(7)
+plot(angle(outft))
+title(<span class="string">'Frequency Domain(Phase)'</span>)
+</pre><img vspace="5" hspace="5" src="DSP0_MATLAB_q6_06.png" alt=""> <img vspace="5" hspace="5" src="DSP0_MATLAB_q6_07.png" alt=""> <img vspace="5" hspace="5" src="DSP0_MATLAB_q6_08.png" alt=""> <img vspace="5" hspace="5" src="DSP0_MATLAB_q6_09.png" alt=""> <h2 id="5">equalizer</h2><pre class="codeinput">figure(8)
+zplane(a.a,b.b)
+title(<span class="string">'Zplane of the equalizer'</span>)
+figure(9)
+freqz(a.a,b.b)
+title(<span class="string">'phase and magnitude of the equalizer'</span>)
+</pre><img vspace="5" hspace="5" src="DSP0_MATLAB_q6_10.png" alt=""> <img vspace="5" hspace="5" src="DSP0_MATLAB_q6_11.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+clear;
+close all;
+clc;
+%% Question 6, 1&2
+a=load('a.mat');
+b=load('b.mat');
+figure(1)
+freqz(b.b,a.a)
+figure(2)
+zplane(b.b,a.a)
+title('Z-plane of the channel system function')
+%% part 3
+[y,Fs] = audioread('HW1_Q4_voice.wav');
+n=length(y);
+y=y(Fs:2*Fs);
+y=y';
+fftsignal=fft(y);
+fftsignal = fftshift(fftsignal);
+
+f=Fs/2*linspace(-pi,pi,length(fftsignal));
+figure(3)
+plot(f,abs(fftsignal))
+title('Magnitude')
+figure(4)
+plot(angle(fftsignal))
+title('Phase')
+%% part 4
+output=filter(b.b,a.a,y);
+figure(5)
+plot(f,output)
+title('Time domain')
+outft=fft(output);
+outft=fftshift(outft);
+figure(6)
+plot(f,abs(outft))
+title('Frequency Domain(Magnitude)')
+figure(7)
+plot(angle(outft))
+title('Frequency Domain(Phase)')
+%% equalizer
+figure(8)
+zplane(a.a,b.b)
+title('Zplane of the equalizer')
+figure(9)
+freqz(a.a,b.b)
+title('phase and magnitude of the equalizer')
+
+
+
+
+##### SOURCE END #####
+--></body></html>
