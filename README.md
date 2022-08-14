@@ -1,4 +1,4 @@
-# DSP_HW2_My codes are provided in the Q folders above.
+#My codes are provided in the Q folders above.
 
 <div align="center">
 <i>In The Name Of God</i>
